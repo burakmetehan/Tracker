@@ -1,0 +1,3 @@
+- O gün yapılan aktiviteler o günki olan yerde gözükecek.
+- Aktiviteler "Activities" olan bir Tab'da gösterilecek.
+- Done butonu save ile benzer yapıda olacak. Süre değişecek.

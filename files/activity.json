@@ -1,0 +1,26 @@
+{
+    "comment": {
+        "this is the comment": ""
+    },
+
+    "metadata": {
+        "total_activity": "3"
+    },
+
+    "ACTIVITY": {
+        "activity_0" :{
+            "category": "PHYS 105",
+            "description": "Mastering Physics"
+        },
+        "activity_1" :{
+            "category": "CENG 140",
+            "description": "Functions"
+        },
+        "activity_2" :{
+            "category": "CENG 140",
+            "description": "Pointers"
+        }
+    },
+
+    "ERROR": "ERROR OCCURED"    
+}

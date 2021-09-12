@@ -22,7 +22,8 @@ class TimerFrame(ttk.Frame):
         self._config = self.read_json("./files/config.json")
         self.load_json(self._config)
 
-        self._maintime = self._minute * 60
+        #self._maintime = self._minute * 60
+        self._maintime = self._minute * 2
 
         #
         self._start = True
@@ -45,6 +46,8 @@ class TimerFrame(ttk.Frame):
             self._timer.configure(text=f"{timeInSeconds//60:02d} : {timeInSeconds%60:02d}")
             if timeInSeconds > 0:
                 self._alarm_id = root.after(1000, self.__count_down, root, timeInSeconds - 1, False)
+            else: # When time is up
+                messagebox.showinfo(title="Congratulations", message="Activity is done. The activity is saved in your activities.")
     
 
     def read_json(self, config_path):
@@ -82,6 +85,9 @@ class ButtonFrame(tk.Frame):
 
         self._reset_button = ttk.Button(self, text="Reset")
         self._reset_button.grid(row=0, column=2)
+
+        self._done_button = ttk.Button(self, text="Done", state="disabled")
+        self._done_button.grid(row=0, column=3)
 
         
 class ToDoFrame(ttk.Labelframe):
@@ -170,6 +176,7 @@ class App(tk.Tk):
         self.button_frame._start_button.configure(command=self.__start_action)
         self.button_frame._pause_button.configure(command=self.__pause_action)
         self.button_frame._reset_button.configure(command=self.__reset_action)
+        self.button_frame._done_button.configure(command=self.__done_action)
 
         self.todo_frame = ToDoFrame(self)
         self.todo_frame.grid(column=0, row=2)
@@ -179,8 +186,12 @@ class App(tk.Tk):
 
 
     def __start_action(self):
-        """ Resume """
+        """ Start/Resume """
         self.timer_frame._paused = False
+        
+        """When it is started once the button will be seen as "Resume"
+        When activy is done or reset it will be seen as "Start" """
+        self.button_frame._start_button.configure(text="Resume")
         
         if self.timer_frame._alarm_id is None:
             self.timer_frame.count_down(self)
@@ -203,6 +214,8 @@ class App(tk.Tk):
             self.after_cancel(self.timer_frame._alarm_id)
 
             """ Reset """
+            self.button_frame._start_button.configure(text="Start")
+
             self.timer_frame._alarm_id = None
             self.timer_frame._paused = False
             self.timer_frame._progressTime = self.timer_frame._maintime
@@ -211,6 +224,12 @@ class App(tk.Tk):
 
         self.button_frame._start_button.configure(state="enabled")
         self.button_frame._pause_button.configure(state="disabled")
+    
+
+    def __done_action(self):
+        """ Save and Reset """
+        pass
+
 
 if __name__ == "__main__":
     app = App()
