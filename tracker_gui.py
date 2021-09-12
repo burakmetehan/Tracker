@@ -1,22 +1,70 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
+import json
+from pathlib import Path
+import os
+
+#============================GLOBALS====================
+MAIN_PATH = Path(__file__).parent.absolute()
+os.chdir(MAIN_PATH)
+#=========================================================
 
 
 class TimerFrame(ttk.Frame):
-    def __init__(self, container):
+    def __init__(self, container, minute:int = 25):
         super().__init__(container)
+        
+        self._timer = ttk.Label(self, text=f"{minute:02d} : {00:02d}", font=("", 50)) # The text has "25 : 00" as default value
+        self._timer.grid(row=0, column=0)
+        
+        self._minute = minute
+        
+        self._config = self.read_json("./files/config.json")
+        self.load_json(self._config)
 
-        self.__create_widgets()
+        self._maintime = self._minute * 60
+
+        #
+        self._start = True
+        self._paused = False
+        self._progressTime = self._maintime
+        self._alarm_id = None
+
+
+    def count_down(self, root:tk.Tk):
+        self.__count_down(root, self._progressTime, self._start)
+
+    def __count_down(self, root:tk.Tk, timeInSeconds, start=True):
+        if start:
+            self._progressTime = timeInSeconds
+
+        if self._paused:
+            self._alarm_id = root.after(1000, self.__count_down, root, timeInSeconds, False)
+
+        else:
+            self._timer.configure(text=f"{timeInSeconds//60:02d} : {timeInSeconds%60:02d}")
+            if timeInSeconds > 0:
+                self._alarm_id = root.after(1000, self.__count_down, root, timeInSeconds - 1, False)
     
-    def __create_widgets(self):
-        minutes = ttk.Label(self, text="25", font=("",50))
-        minutes.grid(column=0, row=0)
 
-        colon = ttk.Label(self, text=" : ", font=("",50))
-        colon.grid(column=1, row=0)
+    def read_json(self, config_path):
+        try:
+            with open(config_path, "r") as config:
+                return json.load(config)
+        except:
+            messagebox.showerror(title="Config File Error", message="Config file is missing or corrupted")
+            return False
+    
 
-        seconds = ttk.Label(self, text="00", font=("",50))
-        seconds.grid(column=2, row=0)
+    def load_json(self, config):
+        if not config:
+            return
+        # Updating Variable 
+        self._minute = int(config["APP"]["minute"])
+        self._total_secs = self._minute * 60
+
+        # Updating Widget
+        self._timer.configure(text=f"{self._minute:02d} : {00:02d}")
 
 
 class ButtonFrame(tk.Frame):
@@ -26,19 +74,49 @@ class ButtonFrame(tk.Frame):
         self.__create_widgets()
     
     def __create_widgets(self):
-        start_button = ttk.Button(self, text="Start")
-        start_button.grid(row=0, column=0)
+        self._start_button = ttk.Button(self, text="Start")
+        self._start_button.grid(row=0, column=0)
 
-        stop_button = ttk.Button(self, text="Stop")
-        stop_button.grid(row=0, column=1)
+        self._pause_button = ttk.Button(self, text="Pause", state="disabled")
+        self._pause_button.grid(row=0, column=1)
 
+        self._reset_button = ttk.Button(self, text="Reset")
+        self._reset_button.grid(row=0, column=2)
 
+        
 class ToDoFrame(ttk.Labelframe):
-    def __init__(self, container):
-        super().__init__(container, text="To Do")
+    def __init__(self, container):        
+        #============Label Frame=========
+        super().__init__(container, text="To Do", style="MyFrame.TLabelframe")
 
+        # Style of LabelFrame
+        self.style = ttk.Style(self)
+        self.style.configure("MyFrame.TLabelframe", borderwidth=0)
+        #==================================
+        
         self.__create_widgets()
-    
+
+    def __create_widgets(self):
+        category = PlaceHolderEntry(self, "Category")
+        category.grid(row=0, column=0)
+
+        description = PlaceHolderEntry(self, "Description")
+        description.grid(row=0, column=1)
+
+
+class TodayPomodoro(ttk.Labelframe):
+    def __init__(self, container):
+        
+        #============Label Frame=========
+        super().__init__(container, text="Today's Pomodoros", style="MyFrame.TLabelframe")
+
+        # Style of LabelFrame
+        self.style = ttk.Style(self)
+        self.style.configure("MyFrame.TLabelframe", borderwidth=0)
+        #==================================
+        
+        self.__create_widgets()
+
     def __create_widgets(self):
         category = PlaceHolderEntry(self, "Category")
         category.grid(row=0, column=0)
@@ -57,15 +135,20 @@ class PlaceHolderEntry(ttk.Entry):
         self.bind("<FocusIn>", self.__clear_placeholder)
         self.bind("<FocusOut>", self.__add_placeholder)
 
+        # Style Configuring
+        self.style = ttk.Style(self)
+        self.style.configure("placeholder.TEntry", foreground="#d5d5d5")
+
+        PlaceHolderEntry.configure(self, style="placeholder.TEntry")
+
+
     def __clear_placeholder(self, event=None):
         self.delete(0, "end")
-    
+
+
     def __add_placeholder(self, event=None):
         if not self.get():
             self.insert(0, self.__placeholder)
-
-
-
 
 
 class App(tk.Tk):
@@ -75,25 +158,61 @@ class App(tk.Tk):
         self.title("Tracker")
 
         self.__create_widgets()
+
     
     def __create_widgets(self):
-        timer_frame = TimerFrame(self)
-        timer_frame.grid(column=0, row=0)
+        self.timer_frame = TimerFrame(self)
+        self.timer_frame.grid(column=0, row=0)
+        #timer_frame.count_down(self)
 
-        button_frame = ButtonFrame(self)
-        button_frame.grid(column=0, row=1)
+        self.button_frame = ButtonFrame(self)
+        self.button_frame.grid(column=0, row=1)
+        self.button_frame._start_button.configure(command=self.__start_action)
+        self.button_frame._pause_button.configure(command=self.__pause_action)
+        self.button_frame._reset_button.configure(command=self.__reset_action)
 
-        todo_frame = ToDoFrame(self)
-        todo_frame.grid(column=0, row=2)
+        self.todo_frame = ToDoFrame(self)
+        self.todo_frame.grid(column=0, row=2)
+
+        self.today_pomodoro = TodayPomodoro(self)
+        self.today_pomodoro.grid(column=0, row=3)
 
 
+    def __start_action(self):
+        """ Resume """
+        self.timer_frame._paused = False
+        
+        if self.timer_frame._alarm_id is None:
+            self.timer_frame.count_down(self)
 
+        self.button_frame._start_button.configure(state="disabled")
+        self.button_frame._pause_button.configure(state="enabled")
+    
+    def __pause_action(self):
+        """ Pause """
+        if self.timer_frame._alarm_id is not None:
+            self.timer_frame._paused = True
+        
+        self.button_frame._start_button.configure(state="enabled")
+        self.button_frame._pause_button.configure(state="disabled")
+    
+
+    def __reset_action(self):
+        """ Reset """
+        if self.timer_frame._alarm_id is not None:
+            self.after_cancel(self.timer_frame._alarm_id)
+
+            """ Reset """
+            self.timer_frame._alarm_id = None
+            self.timer_frame._paused = False
+            self.timer_frame._progressTime = self.timer_frame._maintime
+
+            self.timer_frame._timer.configure(text=f"{self.timer_frame._maintime//60:02d} : {self.timer_frame._maintime%60:02d}")
+
+        self.button_frame._start_button.configure(state="enabled")
+        self.button_frame._pause_button.configure(state="disabled")
 
 if __name__ == "__main__":
     app = App()
     app.mainloop()
-
-
-
-
 
