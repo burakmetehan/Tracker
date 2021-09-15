@@ -11,6 +11,7 @@ os.chdir(MAIN_PATH)
 CONFIG_FILE_PATH = "./files/config.json"
 ACTIVITY_FILE_PATH = "./files/activity.json"
 TODAY_ACTIVITY_FILE_PATH = "./files/today_activity.json"
+TODOFRAME_ACTIVITY_PATH = "./files/todoframe_activity.json"
 #=========================================================
 
 
@@ -173,7 +174,6 @@ class TimerFrame(ttk.Frame):
     
     def save_and_update_json(self, activities:dict, category:str, subcategory:str, description:str, total_time:int):
         """ Creating entry variable to save it to activity.json """
-        print(activities)
         total_activity = int(activities['metadata']['total_activity'])
 
         end_time = time.time()
@@ -220,8 +220,9 @@ class ToDoFrame(ttk.Labelframe):
         self.style = ttk.Style(self)
         self.style.configure("MyFrame.TLabelframe", borderwidth=5)
         #==================================
-        
+    
         self.create_widgets()
+        self.update_todo_frame()
 
 
     def create_widgets(self):
@@ -250,30 +251,74 @@ class ToDoFrame(ttk.Labelframe):
             if yes_or_no: # Continue without insert
                 category, subcategory, description = self.get_data()
             else:
-                pass
+                return
         else: # Save it to "To Do Frame"
             category, subcategory, description = self.get_data()
-        
-        
-            
-            
 
-        self.to_do_category = ttk.Label()
-        pass
+        todo_activities = TimerFrame.read_json(None, TODOFRAME_ACTIVITY_PATH)
+        
+        self.save_activity(todo_activities, category, subcategory, description)
+        self.update_todo_frame()
+
     
+    def add_new_data_widget(self, category: str, subcategory:str, description:str, row_number:int): 
+        new_frame = ttk.Frame(self)
+        new_frame.grid(row=row_number, column=0, columnspan=3)       
+        
+        cate = ttk.Label(new_frame, text=category)
+        cate.grid(row=row_number, column=0)
+        
+        subcate = ttk.Label(new_frame, text=subcategory)
+        subcate.grid(row=row_number, column=1)
+
+        desp = ttk.Label(new_frame, text=description)
+        desp.grid(row=row_number, column=2)
+
+
     def check_convenience(self):
         """ Checking Category, Subcategory and Description have user inserted item """
         if self.category.get() == "Category" or self.subcategory.get() == "Subcategory" or self.description.get() == "Description":
             return False
         else:
             return True
-    
+
+
     def get_data(self):
         category = "" if self.category.get() == "Category" else self.category.get()
         subcategory = "" if self.subcategory.get() == "Subcategory" else self.subcategory.get()
         description = "" if self.description.get() == "Description" else self.description.get()
         
         return category, subcategory, description
+
+
+    def update_todo_frame(self):
+        todo_activities = TimerFrame.read_json(None, TODOFRAME_ACTIVITY_PATH)
+        
+        total_activity = int(todo_activities['metadata']['total_activity'])
+
+        for i in range(total_activity):
+            category = todo_activities["ACTIVITY"][f"activity_{i}"]["category"]
+            subcategory = todo_activities["ACTIVITY"][f"activity_{i}"]["subcategory"]
+            description = todo_activities["ACTIVITY"][f"activity_{i}"]["description"]
+            self.add_new_data_widget(category, subcategory, description, i+1)
+        
+        self.category.reset_entry()
+        self.subcategory.reset_entry()
+        self.description.reset_entry()
+
+
+    def save_activity(self, activities:dict, category:str, subcategory:str, description:str):
+        """ Creating entry variable to save it to todoframe_activity.json """
+        total_activity = int(activities['metadata']['total_activity'])
+                
+        entry = {f"activity_{total_activity}": {'category': category, 'subcategory': subcategory,'description': description, }}
+
+        # Saving activity and telling everything is done
+        activities['metadata']['total_activity'] = total_activity + 1
+        activities["ACTIVITY"].update(entry)
+
+        TimerFrame.update_json(None, TODOFRAME_ACTIVITY_PATH, activities)
+
 
 class TodayPomodoro(ttk.Labelframe):
     def __init__(self, container):
@@ -322,6 +367,10 @@ class PlaceHolderEntry(tk.Entry):
     def focus_out(self, event=None):
         if not self.get():
             self.put_placeholder()
+    
+    def reset_entry(self):
+        self.delete(0, "end")
+        self.put_placeholder()
 
 
 class App(tk.Tk):

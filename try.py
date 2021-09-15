@@ -18,3 +18,13 @@ a, b, c = get_data()
 print(a)
 print(b)
 print(c)
+
+win = tk.Tk()
+
+k = ttk.Label(win, text="Hello")
+k.grid(row=0, column=0)
+print(k.place_info())
+
+
+win.mainloop()
+
