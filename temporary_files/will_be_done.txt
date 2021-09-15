@@ -1,10 +1,9 @@
-- To Do Frame item eklenebilir ve çıkarılabilir hale getirilecek.
-- Save Activity (Timer) düzenlenecek
-    - Save Activity için To Do Frame'e eklenen item olup olmadığı kontrol edilip pop up uyarı verilecek
-
-- O gün yapılan aktiviteler o günki olan yerde gözükecek.
 - Aktiviteler "Activities" olan bir Tab'da veya yeni bir gui'de gösterilecek.
 
 - Aktivite bitince ara başlayacak
 
-- 
+- Menu bar eklenecek
+    - Menu bar exit eklenecek
+    - Config dosyasının düzenlenebileceği bir window hazırlanıp app'e menu bar kısmı olarak eklenecek
+    - Menu bar activities_gui eklenecek
+

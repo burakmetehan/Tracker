@@ -12,6 +12,7 @@ class App(tk.Tk):
         super().__init__()
 
         self.title("Tracker")
+        self.resizable(0, 0)
 
         self.create_widgets()
 
@@ -44,7 +45,7 @@ class App(tk.Tk):
         self.button_frame.start_button.configure(text="Resume")
         
         if self.timer_frame.alarm_id is None:
-            self.timer_frame.count_down(self, self.todo_frame)
+            self.timer_frame.count_down(self, self.todo_frame, self.today_pomodoro)
 
         self.button_frame.start_button.configure(state="disabled")
         self.button_frame.pause_button.configure(state="enabled")
@@ -80,7 +81,8 @@ class App(tk.Tk):
 
     def done_action(self):
         """ Pause, Save and Reset """
-        """ self.pause_action()
-        self.timer_frame.save_activity(self, self.todo_frame.category.get(), self.todo_frame.description.get())
-        self.reset_action() """
-        pass
+        self.pause_action()
+
+        spent_time = self.timer_frame.maintime-self.timer_frame.progressTime
+        self.timer_frame.save_activity(self, spent_time)
+        self.reset_action()

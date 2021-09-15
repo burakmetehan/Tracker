@@ -3,54 +3,40 @@
         "this is the comment": ""
     },
     "metadata": {
-        "total_activity": 7
+        "total_activity": 4
     },
     "ACTIVITY": {
         "activity_0": {
-            "category": "Study",
-            "subcategory": "PHYS 105",
-            "description": "Mastering Physics",
-            "time": "40"
-        },
-        "activity_1": {
-            "category": "Study",
-            "subcategory": "CENG 140",
-            "description": "Functions",
-            "time": "60"
-        },
-        "activity_2": {
-            "category": "Study",
-            "subcategory": "CENG 140",
-            "description": "Pointers",
-            "time": "40"
-        },
-        "activity_3": {
-            "category": "New Category",
-            "subcategory": "New Subcategory",
-            "description": "New Description",
-            "time": "0"
-        },
-        "activity_4": {
             "category": "",
             "subcategory": "",
             "description": "",
-            "time": 1
-        },
-        "activity_5": {
-            "category": "",
-            "subcategory": "",
-            "description": "",
-            "time": 1,
+            "spent_time": 1,
             "start_time": "Wed Sep 15 14:33:50 2021",
             "end_time": "Wed Sep 15 14:34:50 2021"
         },
-        "activity_6": {
-            "category": "ASDASD",
-            "subcategory": "ASDASD",
-            "description": "ASDASD",
-            "time": 1,
-            "start_time": "Wed Sep 15 21:22:33 2021",
-            "end_time": "Wed Sep 15 21:23:33 2021"
+        "activity_1": {
+            "category": "Sport",
+            "subcategory": "Fitness",
+            "description": "Spor Salonu",
+            "spent_time": 1,
+            "start_time": "Thu Sep 16 00:53:38 2021",
+            "end_time": "Thu Sep 16 00:54:38 2021"
+        },
+        "activity_2": {
+            "category": "New Category",
+            "subcategory": "New Subcategory",
+            "description": "New Description",
+            "spent_time": 1,
+            "start_time": "Thu Sep 16 00:55:53 2021",
+            "end_time": "Thu Sep 16 00:56:53 2021"
+        },
+        "activity_3": {
+            "category": "Study",
+            "subcategory": "CENG 140",
+            "description": "Pointers",
+            "spent_time": 0,
+            "start_time": "Thu Sep 16 01:12:34 2021",
+            "end_time": "Thu Sep 16 01:12:34 2021"
         }
     },
     "ERROR": "ERROR OCCURED"

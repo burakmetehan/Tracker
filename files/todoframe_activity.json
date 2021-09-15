@@ -4,14 +4,14 @@
     },
     "ACTIVITY": {
         "activity_0": {
-            "category": "asd",
-            "subcategory": "asd",
-            "description": "asd"
+            "category": "Study",
+            "subcategory": "MATH 120",
+            "description": "Integral"
         },
         "activity_1": {
-            "category": "asdasfsdfdsfa",
-            "subcategory": "asdfasdfsda",
-            "description": "fasdfasdfasdf"
+            "category": "Personal",
+            "subcategory": "Sport",
+            "description": "Spor Salonu"
         }
     }
 }
