@@ -15,7 +15,7 @@ class App(tk.Tk):
 
         self.create_widgets()
 
-    
+
     def create_widgets(self):
         self.timer_frame = TimerFrame(self)
         self.timer_frame.grid(column=0, row=0)
@@ -44,7 +44,7 @@ class App(tk.Tk):
         self.button_frame.start_button.configure(text="Resume")
         
         if self.timer_frame.alarm_id is None:
-            self.timer_frame.count_down(self)
+            self.timer_frame.count_down(self, self.todo_frame)
 
         self.button_frame.start_button.configure(state="disabled")
         self.button_frame.pause_button.configure(state="enabled")

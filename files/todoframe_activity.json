@@ -1,1 +1,17 @@
-{"metadata": {"total_activity": 2}, "ACTIVITY": {"activity_0": {"category": "asd", "subcategory": "asd", "description": "asd"}, "activity_1": {"category": "asdasfsdfdsfa", "subcategory": "asdfasdfsda", "description": "fasdfasdfasdf"}}}
+{
+    "metadata": {
+        "total_activity": 2
+    },
+    "ACTIVITY": {
+        "activity_0": {
+            "category": "asd",
+            "subcategory": "asd",
+            "description": "asd"
+        },
+        "activity_1": {
+            "category": "asdasfsdfdsfa",
+            "subcategory": "asdfasdfsda",
+            "description": "fasdfasdfasdf"
+        }
+    }
+}
