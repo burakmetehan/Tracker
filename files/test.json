@@ -3,7 +3,7 @@
         "this is the comment": ""
     },
     "metadata": {
-        "total_activity": 5
+        "total_activity": "3"
     },
     "ACTIVITY": {
         "activity_0": {
@@ -19,12 +19,8 @@
             "description": "Pointers"
         },
         "activity_3": {
-            "category": "New Category",
-            "description": "New Description"
-        },
-        "activity_4": {
-            "category": "New with function",
-            "description": "New with function"
+            "category": "CENG 140",
+            "description": "PTR"
         }
     },
     "ERROR": "ERROR OCCURED"

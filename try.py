@@ -4,27 +4,18 @@ from time import sleep
 import json
 import os, subprocess
 
-
-def read_activity():
-    with open("./files/today_activity.json", "r") as activity:
-        return json.load(activity)
-
-win = tk.Tk()
-
-frame = ttk.Frame(win)
+entry = {'activity_3': {'category': 'CENG 140', 'description': 'PTR'}}
 
 
-activity = read_activity()
-print(activity)
-print(type(activity))
+filename = './files/test.json'
 
-ttk.Label(win, padding=(5, 5))
-
-zero = 0
-
-
-
-
-frame.pack()
-win.mainloop()
-
+# 1. Read file contents
+with open(filename, "r") as file:
+    data = json.load(file)
+# 2. Update json object
+#data.append(entry)
+data["ACTIVITY"].update(entry)
+# 3. Write json file
+with open(filename, "w") as file:
+    json.dump(data, file)
+    
