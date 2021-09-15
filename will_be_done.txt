@@ -4,3 +4,7 @@
 
 - O gün yapılan aktiviteler o günki olan yerde gözükecek.
 - Aktiviteler "Activities" olan bir Tab'da veya yeni bir gui'de gösterilecek.
+
+- Aktivite bitince ara başlayacak
+
+- 

@@ -3,28 +3,46 @@
         "this is the comment": ""
     },
     "metadata": {
-        "total_activity": 5
+        "total_activity": 6
     },
     "ACTIVITY": {
         "activity_0": {
-            "category": "PHYS 105",
-            "description": "Mastering Physics"
+            "category": "Study",
+            "subcategory": "PHYS 105",
+            "description": "Mastering Physics",
+            "time": "40"
         },
         "activity_1": {
-            "category": "CENG 140",
-            "description": "Functions"
+            "category": "Study",
+            "subcategory": "CENG 140",
+            "description": "Functions",
+            "time": "60"
         },
         "activity_2": {
-            "category": "CENG 140",
-            "description": "Pointers"
+            "category": "Study",
+            "subcategory": "CENG 140",
+            "description": "Pointers",
+            "time": "40"
         },
         "activity_3": {
             "category": "New Category",
-            "description": "New Description"
+            "subcategory": "New Subcategory",
+            "description": "New Description",
+            "time": "0"
         },
         "activity_4": {
-            "category": "New with function",
-            "description": "New with function"
+            "category": "",
+            "subcategory": "",
+            "description": "",
+            "time": 1
+        },
+        "activity_5": {
+            "category": "",
+            "subcategory": "",
+            "description": "",
+            "time": 1,
+            "start_time": "Wed Sep 15 14:33:50 2021",
+            "end_time": "Wed Sep 15 14:34:50 2021"
         }
     },
     "ERROR": "ERROR OCCURED"

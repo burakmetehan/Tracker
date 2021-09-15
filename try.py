@@ -3,19 +3,18 @@ from tkinter import ttk
 from time import sleep
 import json
 import os, subprocess
+import time
 
-entry = {'activity_3': {'category': 'CENG 140', 'description': 'PTR'}}
 
+def get_data():
+    category = "Category"
+    subcategory = "Subcategory"
+    description = "Description"
+        
+    return category, subcategory, description
 
-filename = './files/test.json'
-
-# 1. Read file contents
-with open(filename, "r") as file:
-    data = json.load(file)
-# 2. Update json object
-#data.append(entry)
-data["ACTIVITY"].update(entry)
-# 3. Write json file
-with open(filename, "w") as file:
-    json.dump(data, file)
-    
+print(get_data())
+a, b, c = get_data()
+print(a)
+print(b)
+print(c)

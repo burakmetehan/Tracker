@@ -1,8 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-import json
+import json, os, time
 from pathlib import Path
-import os
 
 
 #============================GLOBALS====================
@@ -36,6 +35,13 @@ class PopUpWindow():
         self.cate_entry = ttk.Entry(self.top)
         self.cate_entry.pack()
 
+        """ Subcategory Part """        
+        self.subcate_text = ttk.Label(self.top, text="Subcategory: ")
+        self.subcate_text.pack()
+
+        self.subcate_entry = ttk.Entry(self.top)
+        self.subcate_entry.pack()
+
         """ Description Part """
         self.desc_text = ttk.Label(self.top, text="Description: ")
         self.desc_text.pack()
@@ -50,6 +56,7 @@ class PopUpWindow():
 
     def close(self):
         self.category = self.cate_entry.get()
+        self.subcategory = self.subcate_entry.get()
         self.description = self.desc_entry.get()
         self.top.destroy()
 
@@ -66,8 +73,8 @@ class TimerFrame(ttk.Frame):
         self.config = self.read_json(CONFIG_FILE_PATH)
         self.load_timer_config(self.config)
 
-        self.maintime = self.minute * 60
-        #self.maintime = self.minute * 2
+        #self.maintime = self.minute * 60
+        self.maintime = self.minute * 2
 
         """ Variables for countdown function """
         self.paused = False
@@ -75,12 +82,13 @@ class TimerFrame(ttk.Frame):
         self.alarm_id = None
 
 
-    def count_down(self, root:tk.Tk, category: str, description: str):
+    def count_down(self, root:tk.Tk, category: str, subcategory: str, description: str):
         """ This function is accessed from outside and it calls the main countdown function """
         
         # This variables will be used while saving
         self.category = category
         self.description = description
+        self.subcategory = subcategory
 
         self.__count_down(root, self.progressTime)
 
@@ -97,7 +105,7 @@ class TimerFrame(ttk.Frame):
             if timeInSeconds > 0: # Continue condition
                 self.alarm_id = root.after(1000, self.__count_down, root, timeInSeconds - 1, False)
             else: # Time is over.
-                self.save_activity(root, self.category, self.description)
+                self.save_activity(root, self.category, self.subcategory, self.description, self.minute)
 
 
     def read_json(self, json_path):
@@ -129,17 +137,18 @@ class TimerFrame(ttk.Frame):
         self.timer.configure(text=f"{self.minute:02d} : {00:02d}")
 
 
-    def save_activity(self, root:tk.Tk, category:str, description:str):
+    def save_activity(self, root:tk.Tk, category:str, subcategory: str, description:str, total_time:int):
         activities = self.read_json(ACTIVITY_FILE_PATH)
+        print(activities)
 
         #=================Texts=================
-        Message_Box_Text = "The catergory or/and description is not specified. Do you want to specify? Yes: Specify category and description No: Save with empty information."
+        Message_Box_Text = "The catergory or/and subcategory or/and description is not specified. Do you want to specify? Yes: Specify category and description No: Save with empty information."
         Yes_Or_No_Title = "Insert Information"
         Yes_Or_No_Message = "Enter a category and description"
         #=======================================
 
         # Arranging category and description for update saved file
-        if category == "Category" or description == "Description": # Default contents
+        if category == "Category" or subcategory == "Subcategory" or description == "Description": # Default contents
             yes_or_no = messagebox.askyesno(title="Warning", message=Message_Box_Text)
             
             if yes_or_no: # Need pop up for entry inserting
@@ -149,17 +158,28 @@ class TimerFrame(ttk.Frame):
                 root.wait_window(pop_up_window.top)
 
                 category = pop_up_window.category
+                subcategory = pop_up_window.subcategory
                 description = pop_up_window.description
             else:
                 category = ""
+                subcategory = ""
                 description = ""
 
 
         """ Creating entry variable to save it to activity.json """
+        self.save_and_update_json(activities, category, subcategory, description, total_time)
+
+        messagebox.showinfo(title="Congratulations", message="Activity is done. The activity is saved in your activities.")
+    
+    def save_and_update_json(self, activities:dict, category:str, subcategory:str, description:str, total_time:int):
+        """ Creating entry variable to save it to activity.json """
+        print(activities)
         total_activity = int(activities['metadata']['total_activity'])
 
-        
-        entry = {f"activity_{total_activity}": {'category': category, 'description': description}}
+        end_time = time.time()
+        start_time = end_time - total_time*60
+                
+        entry = {f"activity_{total_activity}": {'category': category, 'subcategory': subcategory,'description': description, 'time': total_time, 'start_time': time.ctime(start_time), 'end_time': time.ctime(end_time)}}
 
         # Saving activity and telling everything is done
         activities['metadata']['total_activity'] = total_activity + 1
@@ -167,7 +187,7 @@ class TimerFrame(ttk.Frame):
 
         self.update_json(ACTIVITY_FILE_PATH, activities)
 
-        messagebox.showinfo(title="Congratulations", message="Activity is done. The activity is saved in your activities.")
+
 
 
 class ButtonFrame(tk.Frame):
@@ -198,7 +218,7 @@ class ToDoFrame(ttk.Labelframe):
 
         # Style of LabelFrame
         self.style = ttk.Style(self)
-        self.style.configure("MyFrame.TLabelframe", borderwidth=0)
+        self.style.configure("MyFrame.TLabelframe", borderwidth=5)
         #==================================
         
         self.create_widgets()
@@ -208,9 +228,52 @@ class ToDoFrame(ttk.Labelframe):
         self.category = PlaceHolderEntry(self, "Category")
         self.category.grid(row=0, column=0)
 
-        self.description = PlaceHolderEntry(self, "Description")
-        self.description.grid(row=0, column=1)
+        self.subcategory = PlaceHolderEntry(self, "Subcategory")
+        self.subcategory.grid(row=0, column=1)
 
+        self.description = PlaceHolderEntry(self, "Description")
+        self.description.grid(row=0, column=2)
+
+        self.space_label = ttk.Label(self, text="    ")
+        self.space_label.grid(row=0, column=3)
+
+        self.add_button = ttk.Button(self, text="Add To Do", command=self.add_to_do)
+        self.add_button.grid(row=0, column=4)
+    
+
+    def add_to_do(self):
+        is_convenience = self.check_convenience()
+        Yes_Or_No_Message = "The catergory or/and subcategory or/and description is not inserted properly. Do you want to continue without insert?"
+
+        if not is_convenience:
+            yes_or_no = messagebox.askyesno(title="Warning", message=Yes_Or_No_Message)
+            if yes_or_no: # Continue without insert
+                category, subcategory, description = self.get_data()
+            else:
+                pass
+        else: # Save it to "To Do Frame"
+            category, subcategory, description = self.get_data()
+        
+        
+            
+            
+
+        self.to_do_category = ttk.Label()
+        pass
+    
+    def check_convenience(self):
+        """ Checking Category, Subcategory and Description have user inserted item """
+        if self.category.get() == "Category" or self.subcategory.get() == "Subcategory" or self.description.get() == "Description":
+            return False
+        else:
+            return True
+    
+    def get_data(self):
+        category = "" if self.category.get() == "Category" else self.category.get()
+        subcategory = "" if self.subcategory.get() == "Subcategory" else self.subcategory.get()
+        description = "" if self.description.get() == "Description" else self.description.get()
+        
+        return category, subcategory, description
 
 class TodayPomodoro(ttk.Labelframe):
     def __init__(self, container):
@@ -298,7 +361,7 @@ class App(tk.Tk):
         self.button_frame.start_button.configure(text="Resume")
         
         if self.timer_frame.alarm_id is None:
-            self.timer_frame.count_down(self, self.todo_frame.category.get(), self.todo_frame.description.get())
+            self.timer_frame.count_down(self, self.todo_frame.category.get(), self.todo_frame.subcategory.get(),self.todo_frame.description.get())
 
         self.button_frame.start_button.configure(state="disabled")
         self.button_frame.pause_button.configure(state="enabled")
@@ -334,9 +397,10 @@ class App(tk.Tk):
 
     def done_action(self):
         """ Pause, Save and Reset """
-        self.pause_action()
+        """ self.pause_action()
         self.timer_frame.save_activity(self, self.todo_frame.category.get(), self.todo_frame.description.get())
-        self.reset_action()
+        self.reset_action() """
+        pass
 
 
 if __name__ == "__main__":
