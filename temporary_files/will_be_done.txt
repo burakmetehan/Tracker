@@ -1,11 +1,8 @@
 - Aktiviteler "Activities" olan bir Tab'da veya yeni bir gui'de gösterilecek.
 
-+ Aktivite bitince ara başlayacak
-
 - Menu bar eklenecek
-    + Menu bar exit eklenecek
-    + Config dosyasının düzenlenebileceği bir window hazırlanıp app'e menu bar kısmı olarak eklenecek
     - Menu bar activities_gui eklenecek
+    + Menu bar config will fixed
+    
 
-- Timer load_timer_config fonksiyonunu güncelle
-
++ Timer load_timer_config fonksiyonunu güncelle

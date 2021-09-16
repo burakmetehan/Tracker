@@ -8,14 +8,8 @@ import time
 import sys
 
 import Functions
-CONFIG_FILE_PATH = "./files/config.json"
 
+new_d = Functions.read_json("./files/config.json")
 
-today_activities = Functions.read_json(CONFIG_FILE_PATH)
-
-print(today_activities)
-
-
-
-
+print(new_d)
 

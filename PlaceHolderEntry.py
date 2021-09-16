@@ -2,7 +2,7 @@ import tkinter as tk
 
 
 class PlaceHolderEntry(tk.Entry):
-    def __init__(self, container, placeholder):
+    def __init__(self, container, placeholder, ):
         super().__init__(container)
         
         self.placeholder = placeholder

@@ -1,0 +1,7 @@
+{
+    "APP": {
+        "minute": "3",
+        "break": "2",
+        "auto_break": false
+    }
+}
