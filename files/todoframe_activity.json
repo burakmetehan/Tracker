@@ -1,14 +1,19 @@
 {
     "metadata": {
-        "total_activity": 2
+        "total_activity": 3
     },
     "ACTIVITY": {
         "activity_0": {
             "category": "Study",
+            "subcategory": "CENG 140",
+            "description": "Pointers"
+        },
+        "activity_1": {
+            "category": "Study",
             "subcategory": "MATH 120",
             "description": "Integral"
         },
-        "activity_1": {
+        "activity_2": {
             "category": "Personal",
             "subcategory": "Sport",
             "description": "Spor Salonu"

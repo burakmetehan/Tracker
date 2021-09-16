@@ -8,17 +8,13 @@ import time
 import sys
 
 import Functions
-TODAY_ACTIVITY_FILE_PATH = "./files/today_activity.json"
+CONFIG_FILE_PATH = "./files/config.json"
 
 
-today_activities = Functions.read_json(TODAY_ACTIVITY_FILE_PATH)
-
-print(today_activities)
-
-today_activities.pop("ACTIVITY")
-today_activities["ACTIVITY"] = {}
+today_activities = Functions.read_json(CONFIG_FILE_PATH)
 
 print(today_activities)
+
 
 
 

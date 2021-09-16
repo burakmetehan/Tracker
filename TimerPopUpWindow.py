@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 
-class PopUpWindow():
+class TimerPopUpWindow():
     def __init__(self, master, title:str, message:str):
         
         self.top = tk.Toplevel(master)

@@ -1,7 +1,7 @@
 from pathlib import Path
 import os
 
-#============================GLOBALS====================
+#====================================GLOBALS====================================
 MAIN_PATH = Path(__file__).parent.absolute()
 os.chdir(MAIN_PATH)
 
@@ -9,10 +9,13 @@ CONFIG_FILE_PATH = "./files/config.json"
 ACTIVITY_FILE_PATH = "./files/activity.json"
 TODAY_ACTIVITY_FILE_PATH = "./files/today_activity.json"
 TODOFRAME_ACTIVITY_PATH = "./files/todoframe_activity.json"
-#=========================================================
+#===============================================================================
 
-#=====================TimerFrame Texts====================
-Message_Box_Text = "There is not active activity in todo list. Do you want to insert information?\nIf you choose \"No\" the item will be saved without information."
-Pop_Up_Window_Title = "Insert Information"
-Pop_Up_Window_Message = "Enter a category, subcategory and description"
-#=========================================================
+#===============================TimerFrame Texts================================
+POP_UP_WINDOW_TITLE = "Insert Information"
+POP_UP_WINDOW_MESSAGE = "Enter a category, subcategory and description"
+
+YES_OR_NO_MESSAGE_BOX_TEXT = "There is not active activity in todo list. Do you want to insert information?\nIf you choose \"No\" the item will be saved without information."
+BREAK_DONE_MESSAGE_BOX_TEXT = "Break is done. Next activity will be super."
+ACTIVITY_DONE_MESSAGE_BOX_TEXT = "Activity is done. The activity is saved in your activities."
+#===============================================================================

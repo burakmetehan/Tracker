@@ -3,7 +3,7 @@
         "this is the comment": ""
     },
     "metadata": {
-        "total_activity": 4
+        "total_activity": 3
     },
     "ACTIVITY": {
         "activity_0": {
@@ -18,7 +18,7 @@
             "category": "Sport",
             "subcategory": "Fitness",
             "description": "Spor Salonu",
-            "spent_time": 1,
+            "time": 1,
             "start_time": "Thu Sep 16 00:53:38 2021",
             "end_time": "Thu Sep 16 00:54:38 2021"
         },
@@ -26,17 +26,9 @@
             "category": "New Category",
             "subcategory": "New Subcategory",
             "description": "New Description",
-            "spent_time": 1,
+            "time": 1,
             "start_time": "Thu Sep 16 00:55:53 2021",
             "end_time": "Thu Sep 16 00:56:53 2021"
-        },
-        "activity_3": {
-            "category": "Study",
-            "subcategory": "CENG 140",
-            "description": "Pointers",
-            "spent_time": 0,
-            "start_time": "Thu Sep 16 01:12:34 2021",
-            "end_time": "Thu Sep 16 01:12:34 2021"
         }
     },
     "ERROR": "ERROR OCCURED"

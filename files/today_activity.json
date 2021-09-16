@@ -1,16 +1,7 @@
 {
     "metadata": {
-        "total_activity": 1,
+        "total_activity": 0,
         "date": "16 9 2021"
     },
-    "ACTIVITY": {
-        "activity_0": {
-            "category": "Study",
-            "subcategory": "CENG 140",
-            "description": "Pointers",
-            "spent_time": 0,
-            "start_time": "Thu Sep 16 01:12:34 2021",
-            "end_time": "Thu Sep 16 01:12:34 2021"
-        }
-    }
+    "ACTIVITY": {}
 }
