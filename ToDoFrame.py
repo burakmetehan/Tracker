@@ -5,7 +5,8 @@ from PlaceHolderEntry import *
 import Functions
 
 
-CATEGORY_WIDTH = 15
+CATE_WIDTH = 15
+DESP_WIDTH = 75
 
 class ToDoFrame(ttk.Frame):
     def __init__(self, container):        
@@ -21,13 +22,13 @@ class ToDoFrame(ttk.Frame):
         self.entry_frame = ttk.Frame(self)
         self.entry_frame.pack(fill="both")
 
-        self.category = PlaceHolderEntry(self.entry_frame, "Category", width=15)
+        self.category = PlaceHolderEntry(self.entry_frame, "Category", width=CATE_WIDTH)
         self.category.pack(side="left")
 
-        self.subcategory = PlaceHolderEntry(self.entry_frame, "Subcategory", width=15)
+        self.subcategory = PlaceHolderEntry(self.entry_frame, "Subcategory", width=CATE_WIDTH)
         self.subcategory.pack(side="left")
 
-        self.description = PlaceHolderEntry(self.entry_frame, "Description", width=75)
+        self.description = PlaceHolderEntry(self.entry_frame, "Description", width=DESP_WIDTH)
         self.description.pack(side="left")
 
 
@@ -63,13 +64,13 @@ class ToDoFrame(ttk.Frame):
 
 
     def add_new_data_widget(self, category: str, subcategory:str, description:str, row_number:int):
-        cate = ttk.Label(self.todo_list_frame, text=category, width=15)
+        cate = ttk.Label(self.todo_list_frame, text=category, width=CATE_WIDTH)
         cate.grid(row=row_number, column=0, sticky="W")
         
-        subcate = ttk.Label(self.todo_list_frame, text=subcategory, width=15)
+        subcate = ttk.Label(self.todo_list_frame, text=subcategory, width=CATE_WIDTH)
         subcate.grid(row=row_number, column=1, sticky="W")
 
-        desp = ttk.Label(self.todo_list_frame, text=description, width=75, anchor="w")
+        desp = ttk.Label(self.todo_list_frame, text=description, width=DESP_WIDTH, anchor="w")
         desp.grid(row=row_number, column=2, sticky="W")
 
 

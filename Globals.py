@@ -1,4 +1,5 @@
 from pathlib import Path
+from platform import system
 import os
 
 #====================================GLOBALS====================================
@@ -9,6 +10,12 @@ CONFIG_FILE_PATH = "./files/config.json"
 ACTIVITY_FILE_PATH = "./files/activity.json"
 TODAY_ACTIVITY_FILE_PATH = "./files/today_activity.json"
 TODOFRAME_ACTIVITY_PATH = "./files/todoframe_activity.json"
+
+# icon path
+if system() == "Windows": # Windows system
+    ICON_PATH = "./files/app_icon.ico"
+else: # Linux system
+    ICON_PATH = "./files/app_icon.xbm"
 #===============================================================================
 
 #===============================TimerFrame Texts================================

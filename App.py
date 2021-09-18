@@ -13,6 +13,7 @@ class App(tk.Tk):
         super().__init__()
 
         self.title("Tracker")
+        self.iconbitmap(ICON_PATH)
         self.resizable(0, 0)
 
         self.create_widgets()

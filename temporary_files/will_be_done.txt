@@ -1,9 +1,0 @@
-- Aktiviteler "Activities" olan bir Tab'da veya yeni bir gui'de gösterilecek.
-
-- Menu bar eklenecek
-    - Menu bar activities_gui eklenecek  
-
-+ Yeni item eklenince today_activity kısmının kaybolması düzeltilecek
-    + Muhtemelen ayarladığım geomöetry kaynaklı o kısım düzeltilecek
-
-+ Yeni item isimsiz eklinince çıkan mesajı güncelle

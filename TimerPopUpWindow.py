@@ -6,6 +6,7 @@ class TimerPopUpWindow():
         
         self.top = tk.Toplevel(master)
         self.top.title(title)
+        self.top.iconbitmap(ICON_PATH)
         self.top.geometry("300x150")
 
         self.category = ""

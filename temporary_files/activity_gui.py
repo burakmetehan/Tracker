@@ -11,20 +11,6 @@ os.chdir(MAIN_PATH)
 #=========================================================
 
 
-class MenuBar(tk.Menu):
-    def __init__(self, container: tk.Tk):
-        self.container = container
-        
-        # Creating Menu Bar
-        self.menu_bar = super().__init__(container)
-        container.configure(menu=self.menu_bar)
-
-    def _menu_exit(self):
-        self.container.quit()
-        self.container.destroy()
-        exit()
-
-
 class App(tk.Tk):
     def __init__(self):
         super().__init__()

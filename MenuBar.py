@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import Menu
 
 from MenuBarPopUpWindow import *
+from ActivityWindow import *
 
 class MenuBar(Menu):
     def __init__(self, master:tk.Tk):
@@ -23,9 +24,13 @@ class MenuBar(Menu):
         """ Creating "File" Menu"""
         self.file_menu = Menu(self.menu_bar, tearoff=0)
 
+        # Adding new "Activity" item to "File" menu
+        self.file_menu.add_command(label="Activity", command=self.__activity)
+
         # Adding new "Exit" item to "File" menu
         self.file_menu.add_separator()
         self.file_menu.add_command(label="Exit", command=self.__exit)
+
     
 
     def create_setting_menu(self):
@@ -33,6 +38,11 @@ class MenuBar(Menu):
 
         # Adding new "Config" item to "Setting" menu
         self.setting_menu.add_command(label="Config", command=self.__config)
+
+
+    def __activity(self):
+        pop_up_activity = ActivityWindow(self.master)
+        self.master.wait_window(pop_up_activity.popup)
 
 
     def __exit(self):
@@ -43,8 +53,4 @@ class MenuBar(Menu):
     def __config(self):
         pop_up_window = ConfigPopUpWindow(self.master, "Config")
         self.master.wait_window(pop_up_window.popup)
-
-
-
-
 

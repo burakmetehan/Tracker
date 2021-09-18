@@ -12,6 +12,7 @@ class ConfigPopUpWindow():
 
         self.popup = tk.Toplevel(master)
         self.popup.title(title)
+        self.popup.iconbitmap(ICON_PATH)
         self.popup.geometry("250x250")
 
 
