@@ -46,10 +46,9 @@ class ToDoFrame(ttk.Frame):
     def add_to_do(self):
         """ Adding items to "To Do List" """
         is_convenience = self.check_convenience()
-        Yes_Or_No_Message = "The catergory or/and subcategory or/and description is not inserted properly. Do you want to continue without insert?"
 
         if not is_convenience:
-            yes_or_no = messagebox.askyesno(title="Warning", message=Yes_Or_No_Message)
+            yes_or_no = messagebox.askyesno(title="Warning", message=TODO_YES_OR_NO_MESSAGE_BOX_TEXT)
             if yes_or_no: # Continue without insert
                 category, subcategory, description = self.get_data()
             else:

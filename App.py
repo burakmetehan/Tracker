@@ -4,7 +4,7 @@ from Globals import *
 from TimerFrame import *
 from ButtonFrame import *
 from ToDoFrame import *
-from TodayPomodoro import *
+from TodayActivityFrame import *
 from MenuBar import *
 
 
@@ -16,7 +16,7 @@ class App(tk.Tk):
         self.resizable(0, 0)
 
         self.create_widgets()
-        self.timer_frame.access_other_frames(self, self.todo_frame, self.today_pomodoro, self.button_frame)
+        self.timer_frame.access_other_frames(self, self.todo_frame, self.today_activity_frame, self.button_frame)
 
 
         # Centering the window
@@ -25,7 +25,7 @@ class App(tk.Tk):
         app_height = self.winfo_height()        
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight() 
-        self.geometry(f"{app_width}x{app_height}+{screen_width//2 - app_width//2}+{screen_height//2 - app_height//2}")
+        self.geometry(f"+{screen_width//2 - app_width//2}+{screen_height//2 - app_height//2}")
 
 
     def create_widgets(self):
@@ -44,8 +44,8 @@ class App(tk.Tk):
         self.todo_frame = ToDoFrame(self)
         self.todo_frame.pack(expand=True, pady=10)
 
-        self.today_pomodoro = TodayPomodoro(self)
-        self.today_pomodoro.pack(expand=True, pady=10)
+        self.today_activity_frame = TodayActivity(self)
+        self.today_activity_frame.pack(expand=True, pady=10)
 
 
     def start_action(self):
@@ -107,7 +107,7 @@ class App(tk.Tk):
             self.after_cancel(self.timer_frame.alarm_id)
 
             # Saving activity
-            spent_time = self.timer_frame.activity_time-self.timer_frame.progressTime
+            spent_time = (self.timer_frame.activity_time-self.timer_frame.progressTime)//60
             self.timer_frame.save_activity(self, spent_time)
 
             # Reset "Timer" and Start "Break"

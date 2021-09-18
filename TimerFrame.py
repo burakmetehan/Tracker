@@ -5,7 +5,7 @@ import time
 from Globals import *
 from TimerPopUpWindow import *
 from ToDoFrame import ToDoFrame
-from TodayPomodoro import TodayPomodoro
+from TodayActivityFrame import TodayActivity
 from ButtonFrame import ButtonFrame
 import Functions
 
@@ -45,10 +45,10 @@ class TimerFrame(ttk.Frame):
         self.progressTime = self.activity_time
 
 
-    def access_other_frames(self, root:tk.Tk, todo_frame:ToDoFrame, today_pomodoro_frame:TodayPomodoro, button_frame: ButtonFrame):
+    def access_other_frames(self, root:tk.Tk, todo_frame:ToDoFrame, today_activity_frame:TodayActivity, button_frame: ButtonFrame):
         self.root = root
         self.todo_frame = todo_frame
-        self.today_pomodoro_frame = today_pomodoro_frame
+        self.today_activity_frame = today_activity_frame
         self.button_frame = button_frame
 
 
@@ -179,7 +179,7 @@ class TimerFrame(ttk.Frame):
         # Updating today_activity.json
         activities = Functions.read_json(TODAY_ACTIVITY_FILE_PATH)
         self.save_activity_and_update_json(activities, category, subcategory, description, total_time, TODAY_ACTIVITY_FILE_PATH)
-        self.today_pomodoro_frame.update_today_pomodoro(activities)
+        self.today_activity_frame.update_today_activity(activities)
 
         messagebox.showinfo(title="Congratulations", message=ACTIVITY_DONE_MESSAGE_BOX_TEXT)
 

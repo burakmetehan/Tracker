@@ -9,7 +9,7 @@ DESP_WIDTH = 57
 TIME_WIDTH = 8
 START_TIME = 22
 
-class TodayPomodoro(ttk.Frame):
+class TodayActivity(ttk.Frame):
     def __init__(self, container):
         
         #============Label Frame=========
@@ -45,8 +45,8 @@ class TodayPomodoro(ttk.Frame):
         self.start_time.grid(row=0, column=4)
         #===========================
 
-        self.today_pomodoro_frame = ttk.Frame(self)
-        self.today_pomodoro_frame.pack()
+        self.today_activity_frame = ttk.Frame(self)
+        self.today_activity_frame.pack()
         
 
         """ Checking date whether it is appropriate or not """
@@ -67,17 +67,17 @@ class TodayPomodoro(ttk.Frame):
 
     def add_one_row(self, cat:str, subcat:str, desp:str, spent_time:int, start_time:str, row_number):
         """ Adding One Row: Category, Subcategory, Description, Spent Time, Start Time """
-        ttk.Label(self.today_pomodoro_frame, text=cat, width=CATE_WIDTH).grid(row=row_number, column=0)
-        ttk.Label(self.today_pomodoro_frame, text=subcat, width=CATE_WIDTH).grid(row=row_number, column=1)
-        ttk.Label(self.today_pomodoro_frame, text=desp, width=DESP_WIDTH).grid(row=row_number, column=2)
-        ttk.Label(self.today_pomodoro_frame, text=spent_time, width=TIME_WIDTH).grid(row=row_number, column=3)
-        ttk.Label(self.today_pomodoro_frame, text=start_time, width=START_TIME).grid(row=row_number, column=4)
+        ttk.Label(self.today_activity_frame, text=cat, width=CATE_WIDTH).grid(row=row_number, column=0)
+        ttk.Label(self.today_activity_frame, text=subcat, width=CATE_WIDTH).grid(row=row_number, column=1)
+        ttk.Label(self.today_activity_frame, text=desp, width=DESP_WIDTH).grid(row=row_number, column=2)
+        ttk.Label(self.today_activity_frame, text=spent_time, width=TIME_WIDTH).grid(row=row_number, column=3)
+        ttk.Label(self.today_activity_frame, text=start_time, width=START_TIME).grid(row=row_number, column=4)
 
 
     def add_all_activity(self, today_activities):
         """ Adding All Today's Activity from today_activity.json """
         # Destroying existing content
-        for child in self.today_pomodoro_frame.winfo_children():
+        for child in self.today_activity_frame.winfo_children():
             child.destroy()
 
         # Creating the content
@@ -96,7 +96,7 @@ class TodayPomodoro(ttk.Frame):
             return False
 
 
-    def update_today_pomodoro(self, activities):
+    def update_today_activity(self, activities):
         """ Updating content function. Checking and adding activities from today_activity.json """
         date = time.localtime()
         today_date = f"{date.tm_mday} {date.tm_mon} {date.tm_year}"
