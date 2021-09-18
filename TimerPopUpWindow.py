@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
 
+from Globals import ICON_PATH
+
 class TimerPopUpWindow():
     def __init__(self, master, title:str, message:str):
         
