@@ -9,12 +9,15 @@ class ActivityWindow():
     def __init__(self, master, title:str="All Activities"):
 
         self.popup = tk.Toplevel(master)
-        self.popup.title(title)
+        self.popup.title(title)        
         self.popup.iconbitmap(ICON_PATH)
         self.popup.resizable(0,0)
+        self.popup.geometry("+250+250")
 
         self.activities = Functions.read_json(ACTIVITY_FILE_PATH)
         self.total_activities = int(self.activities["metadata"]["total_activity"])
+
+        
 
         self.create_widgets()
 

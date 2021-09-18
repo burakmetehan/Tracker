@@ -13,9 +13,9 @@ class ConfigPopUpWindow():
         self.popup = tk.Toplevel(master)
         self.popup.title(title)
         self.popup.iconbitmap(ICON_PATH)
-        self.popup.geometry("250x250")
-
-
+        self.popup.geometry(f"250x180+{master.winfo_x()+10}+{master.winfo_y()+10}") 
+        self.popup.resizable(0,0)
+    
         self.config_file = Functions.read_json(CONFIG_FILE_PATH)
         
         """ Activity Time """

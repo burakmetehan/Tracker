@@ -15,7 +15,8 @@ TODOFRAME_ACTIVITY_PATH = "./files/todoframe_activity.json"
 if system() == "Windows": # Windows system
     ICON_PATH = "./files/app_icon.ico"
 else: # Linux system
-    ICON_PATH = "./files/app_icon.xbm"
+    #ICON_PATH = "./files/app_icon.xbm"
+    ICON_PATH = ""
 #===============================================================================
 
 #===============================TimerFrame Texts================================
