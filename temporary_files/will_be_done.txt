@@ -1,8 +1,4 @@
 - Aktiviteler "Activities" olan bir Tab'da veya yeni bir gui'de gösterilecek.
 
 - Menu bar eklenecek
-    - Menu bar activities_gui eklenecek
-    + Menu bar config will fixed
-    
-
-+ Timer load_timer_config fonksiyonunu güncelle
+    - Menu bar activities_gui eklenecek   

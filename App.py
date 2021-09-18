@@ -17,26 +17,35 @@ class App(tk.Tk):
 
         self.create_widgets()
         self.timer_frame.access_other_frames(self, self.todo_frame, self.today_pomodoro, self.button_frame)
-        
+
+
+        # Centering the window
+        self.update_idletasks()
+        app_width = self.winfo_width()
+        app_height = self.winfo_height()        
+        screen_width = self.winfo_screenwidth()
+        screen_height = self.winfo_screenheight() 
+        self.geometry(f"{app_width}x{app_height}+{screen_width//2 - app_width//2}+{screen_height//2 - app_height//2}")
+
 
     def create_widgets(self):
         self.menu = MenuBar(self)
 
         self.timer_frame = TimerFrame(self)
-        self.timer_frame.grid(column=0, row=0)
+        self.timer_frame.pack()
 
         self.button_frame = ButtonFrame(self)
-        self.button_frame.grid(column=0, row=1)
+        self.button_frame.pack()
         self.button_frame.start_button.configure(command=self.start_action)
         self.button_frame.pause_button.configure(command=self.pause_action)
         self.button_frame.reset_button.configure(command=self.reset_action)
         self.button_frame.done_button.configure(command=self.done_action)
 
         self.todo_frame = ToDoFrame(self)
-        self.todo_frame.grid(column=0, row=2)
+        self.todo_frame.pack(expand=True, pady=10)
 
         self.today_pomodoro = TodayPomodoro(self)
-        self.today_pomodoro.grid(column=0, row=3)
+        self.today_pomodoro.pack(expand=True, pady=10)
 
 
     def start_action(self):

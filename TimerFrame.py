@@ -26,8 +26,8 @@ class TimerFrame(ttk.Frame):
         self.load_config(self.config)
 
         # Variables from config
-        self.activity_time = self.config_activity_time * 1
-        self.break_time = self.config_break_time * 1
+        self.activity_time = self.config_activity_time * 60
+        self.break_time = self.config_break_time * 60
         self.auto_break = self.config_auto_break
 
         self.function_start_time = self.activity_time # This variable will change between calls according to function

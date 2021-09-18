@@ -1,19 +1,16 @@
-from tkinter import ttk, messagebox
+from tkinter import font, ttk, messagebox
 
 from Globals import *
 from PlaceHolderEntry import *
 import Functions
 
 
-class ToDoFrame(ttk.Labelframe):
+CATEGORY_WIDTH = 15
+
+class ToDoFrame(ttk.Frame):
     def __init__(self, container):        
         #============Label Frame=========
-        super().__init__(container, text="To Do", style="MyFrame.TLabelframe")
-
-        # Style of LabelFrame
-        self.style = ttk.Style(self)
-        self.style.configure("MyFrame.TLabelframe", borderwidth=5)
-        #==================================
+        super().__init__(container)
     
         self.create_widgets()
         self.update_todo_frame()
@@ -22,24 +19,27 @@ class ToDoFrame(ttk.Labelframe):
     def create_widgets(self):
         #====Entry Part======
         self.entry_frame = ttk.Frame(self)
-        self.entry_frame.grid(row=0, columnspan=4)
+        self.entry_frame.pack(fill="both")
 
-        self.category = PlaceHolderEntry(self.entry_frame, "Category")
-        self.category.grid(row=0, column=0)
+        self.category = PlaceHolderEntry(self.entry_frame, "Category", width=15)
+        self.category.pack(side="left")
 
-        self.subcategory = PlaceHolderEntry(self.entry_frame, "Subcategory")
-        self.subcategory.grid(row=0, column=1)
+        self.subcategory = PlaceHolderEntry(self.entry_frame, "Subcategory", width=15)
+        self.subcategory.pack(side="left")
 
-        self.description = PlaceHolderEntry(self.entry_frame, "Description")
-        self.description.grid(row=0, column=2)
+        self.description = PlaceHolderEntry(self.entry_frame, "Description", width=75)
+        self.description.pack(side="left")
 
-        self.add_button = ttk.Button(self.entry_frame, text="Add To Do", command=self.add_to_do)
-        self.add_button.grid(row=0, column=3)
+
+        self.add_button = ttk.Button(self.entry_frame, text="Add To Do", style="my.TButton", command=self.add_to_do)
+        self.add_button.pack()
+
         #=====================
+        
 
         #====To Do List Part======
         self.todo_list_frame = ttk.Frame(self)
-        self.todo_list_frame.grid(row=1, columnspan=3)
+        self.todo_list_frame.pack(fill="both")       
         #=========================
 
 
@@ -64,13 +64,13 @@ class ToDoFrame(ttk.Labelframe):
 
 
     def add_new_data_widget(self, category: str, subcategory:str, description:str, row_number:int):
-        cate = ttk.Label(self.todo_list_frame, text=category)
+        cate = ttk.Label(self.todo_list_frame, text=category, width=15)
         cate.grid(row=row_number, column=0, sticky="W")
         
-        subcate = ttk.Label(self.todo_list_frame, text=subcategory)
+        subcate = ttk.Label(self.todo_list_frame, text=subcategory, width=15)
         subcate.grid(row=row_number, column=1, sticky="W")
 
-        desp = ttk.Label(self.todo_list_frame, text=description)
+        desp = ttk.Label(self.todo_list_frame, text=description, width=75, anchor="w")
         desp.grid(row=row_number, column=2, sticky="W")
 
 

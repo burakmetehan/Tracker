@@ -2,11 +2,14 @@ import tkinter as tk
 
 
 class PlaceHolderEntry(tk.Entry):
-    def __init__(self, container, placeholder, ):
+    def __init__(self, container, placeholder, width:int=None):
         super().__init__(container)
-        
+
+        self.configure(width=width)
+
         self.placeholder = placeholder
         self.placeholder_color = "#d5d5d5"
+
                 
         self.bind("<FocusIn>", self.focus_in)
         self.bind("<FocusOut>", self.focus_out)
